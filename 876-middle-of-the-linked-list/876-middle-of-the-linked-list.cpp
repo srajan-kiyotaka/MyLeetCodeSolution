@@ -14,8 +14,8 @@ public:
         ListNode* p;
         ListNode* q;
         p = head;
-        q = head->next;
-        while(p != NULL && q != NULL){
+        q = head;
+        while(q != NULL && q->next != NULL){
             q = q->next;
             p = p->next;
             if(q == NULL) return p;
