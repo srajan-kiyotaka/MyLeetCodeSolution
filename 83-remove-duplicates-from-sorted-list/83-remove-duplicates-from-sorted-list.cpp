@@ -16,13 +16,15 @@ public:
         if(p == NULL) return head;
         p = p->next;
         q = head;
+        int prev = head->val;
         while(p != NULL){
-            if(p->val == q->val){
+            if(p->val == prev){
                 q->next = p->next;
                 delete p;
                 p = q->next;
                 continue;
             }
+            prev = p->val;
             q = p;
             p = p->next;
         }
