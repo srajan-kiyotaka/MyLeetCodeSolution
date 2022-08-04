@@ -22,11 +22,9 @@ public:
     
     int numIslands(vector<vector<char>>& grid) {
         if(grid.empty()) return 0;
-        int n = grid.size();
-        int m = grid[0].size();
         int island = 0;
-        for(int i = 0; i < n; i++){
-            for(int j = 0; j < m; j++){
+        for(int i = 0; i < grid.size(); i++){
+            for(int j = 0; j < grid[0].size(); j++){
                 if(grid[i][j] == '1'){
                     island++;
                     // cout << island << endl;
