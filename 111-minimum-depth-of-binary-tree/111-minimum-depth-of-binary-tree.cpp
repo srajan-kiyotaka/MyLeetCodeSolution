@@ -20,9 +20,7 @@ public:
         else if(root->left != NULL){
             return minDepth(root->left) + 1;
         }
-        else{
-            return minDepth(root->right) + 1;
-        }
-        return 0;
+        
+        return minDepth(root->right) + 1;
     }
 };
