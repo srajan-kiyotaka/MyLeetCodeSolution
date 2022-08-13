@@ -13,15 +13,15 @@ class Solution {
 public:
     vector<int> ans;
     
-    void pre(TreeNode* root){
+    void post(TreeNode* root){
         if(root == NULL) return;
-        pre(root->left);
-        pre(root->right);
+        post(root->left);
+        post(root->right);
         ans.push_back(root->val);
     }
     
     vector<int> postorderTraversal(TreeNode* root) {
-        pre(root);
+        post(root);
         return ans;
     }
 };
