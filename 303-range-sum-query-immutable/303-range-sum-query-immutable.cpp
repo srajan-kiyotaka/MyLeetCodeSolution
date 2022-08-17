@@ -2,7 +2,8 @@ class NumArray {
 public:
     vector<int> result;
     NumArray(vector<int>& nums) {
-        copy(nums.begin(), nums.end(), back_inserter(result));
+        result = nums;
+        // copy(nums.begin(), nums.end(), back_inserter(result));
     }
     
     int sumRange(int left, int right) {
