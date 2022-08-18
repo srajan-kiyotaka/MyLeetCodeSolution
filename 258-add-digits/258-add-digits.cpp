@@ -2,6 +2,10 @@ class Solution {
 public:
     vector<int> digit(int n){
         vector<int> ans;
+        if(n / 10 == 0){
+            ans.push_back(n);
+            return ans;
+        }
         while(n > 0){
             ans.push_back(n % 10);
             n /= 10;
