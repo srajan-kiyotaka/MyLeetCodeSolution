@@ -16,7 +16,7 @@ public:
             }
         }
         if(count == word.length()) return true;
-        if(pos == -1 || pos == 0) return true;
+        if(pos <= 0) return true;
 
         return false;
     }
