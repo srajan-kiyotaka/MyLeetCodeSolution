@@ -10,7 +10,7 @@ public:
         }
         if(initialExperience <= max_exp){
             int i = 0;
-            while(i < experience.size() ){// && initialExperience <= max_exp
+            while(i < experience.size() && initialExperience <= max_exp){// && initialExperience <= max_exp
                 if(experience[i] >= initialExperience){
                     hour += experience[i] - initialExperience + 1;
                     initialExperience += 2*experience[i++] - initialExperience + 1;
