@@ -1,5 +1,6 @@
 class Solution {
 public:
+    /* Using Complement Method */
     int bitwiseComplement(int n) {
         if(n == 0) return 1;
         int ans = 1;
@@ -8,4 +9,18 @@ public:
         }
         return (ans - n - 1);
     }
+    
+    /* Using Mask and Not */
+    // int bitwiseComplement(int n) {
+    //     if(n == 0) return 1;
+    //     int mask = 0;
+    //     int complement = ~n;
+    //     while(n != 0){
+    //         mask = mask << 1;
+    //         mask = mask | 1;
+    //         n = n >> 1;
+    //     }
+    //     return (complement & mask);
+    // }
+    
 };
