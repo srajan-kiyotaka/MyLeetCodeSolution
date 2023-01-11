@@ -1,11 +1,11 @@
 class Solution {
 public:
-    int ans_fun(int parent, int node, vector<vector<int>>& adj, vector<bool>& hasApple){
+    int dfs_tree(int parent, int node, vector<vector<int>>& adj, vector<bool>& hasApple){
          int total = 0;
          int child_time = 0;
          for(auto child: adj[node]){
              if(child == parent) continue;
-             child_time = ans_fun(node, child, adj, hasApple);
+             child_time = dfs_tree(node, child, adj, hasApple);
              if(child_time || hasApple[child]) total += child_time + 2;
          }
          return total;
@@ -21,6 +21,6 @@ public:
             i++;
         }
 
-        return ans_fun(-1, 0, adj, hasApple);
+        return dfs_tree(-1, 0, adj, hasApple);
     }
 };
