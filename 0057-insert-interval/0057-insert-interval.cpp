@@ -23,8 +23,6 @@ public:
             }
         }
 
-        cout << i << " " << j << endl;
-
         if(i == j){
             if(i == intervals.size() - 1){
                 if(intervals[i][1] < newInterval[0]){
@@ -64,7 +62,6 @@ public:
                 }
             }
             else{
-                cout << "inside" << endl;
                 intervals[j][0] = min(intervals[j][0], newInterval[0]);
                 intervals[j][1] = max(intervals[i][1], newInterval[1]);
                 intervals.erase(intervals.begin() + j + 1, intervals.begin() + i + 1);
