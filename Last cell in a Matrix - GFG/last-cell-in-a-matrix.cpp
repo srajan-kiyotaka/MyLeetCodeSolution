@@ -9,7 +9,10 @@ using namespace std;
 //User function Template for C++
 
 class Solution{
+    
+    
     public:
+    
     bool issafe(int m, int n, int i, int j)
 {
  
@@ -26,9 +29,13 @@ class Solution{
   // Return true if valid
   return true;
 }
+    
+    
     pair<int,int> endPoints(vector<vector<int>> arr, int m, int n){
-        //code here
-        int i = 0;
+ 
+  // Starting from cell (0, 0),
+  // traverse in right direction
+  int i = 0;
   int j = 0;
   int current_i = 0;
   int current_j = 0;
@@ -87,7 +94,7 @@ class Solution{
   }
  
   // The exit coordinates
-  return {current_i, current_j};
+  return {current_i, current_j};   
     }
 };
 
