@@ -28,6 +28,38 @@ public:
     }
 };
 
+/*
+
+bool checkPermutation(string a, string b, vector<int> hash){
+        for(int i = 0; i < a.length(); i++){
+            if(hash[b[i] - 'a'] == 0) return false;
+            hash[b[i] - 'a']--;
+        }
+        return true;
+    }
+
+    bool checkInclusion(string s1, string s2) {
+        // Sliding Window approch
+        if(s1.length() > s2.length()) return false;
+        vector<int> hash(26, 0);
+        for(int i = 0; i < s1.length(); i++){
+            hash[s1[i] - 'a']++;
+        }
+        // First Window
+        string w = s2.substr(0, s1.length());
+        if(checkPermutation(s1, w, hash)) return true;
+
+        for(int i = 1; i <= s2.length() - s1.length(); i++){
+            w = w.erase(0, 1);
+            w.push_back(s2[i + s1.length() - 1]);
+            if(checkPermutation(s1, w, hash)) return true;
+        }
+        return false;
+    }
+
+*/
+
+
 // int s1_size = s1.length();
 //         int s2_size = s2.length();
 //         if(s1_size > s2_size) return false;
