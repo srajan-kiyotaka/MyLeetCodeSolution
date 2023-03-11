@@ -1,38 +1,57 @@
 class Solution {
 public:
-    bool checkInclusion(string s1, string s2) {
-        int s1_size = s1.length();
-        int s2_size = s2.length();
-        if(s1_size > s2_size) return false;
-        unordered_map<char, int> HashMap;
-        for(int i = 0; i < s1_size; i++){
-            if(HashMap.find(s1[i]) != HashMap.end()){
-                HashMap[s1[i]] += 1;
-                continue;
-            }
-            HashMap[s1[i]] = 1;
+    bool checkPermutation(string a, string b, vector<int> hash){
+        for(int i = 0; i < a.length(); i++){
+            if(hash[b[i] - 'a'] == 0) return false;
+            hash[b[i] - 'a']--;
         }
-        int n = s2_size - s1_size + 1;
-        unordered_map<char, int> hashMap;
-        // cout << s2 << endl;
-        for(int i = 0; i < n; i++){
-            cout << s2[i] << endl;
-            if(HashMap.find(s2[i]) != HashMap.end()){
-                int m = 0;
-                hashMap = HashMap;
-                // cout << s2[i] << endl;
-                for(int j = 0; j < s1_size; j++){
-                    if(hashMap.find(s2[j + i]) != hashMap.end() && hashMap[s2[j + i]] != 0){
-                        hashMap[s2[j + i]] -= 1;
-                        m++;
-                        continue;
-                    }
-                    break;
-                }
-                if(m == s1_size) return true;
-            }
+        return true;
+    }
+    
+    bool checkInclusion(string s1, string s2) {
+        // Sliding Window approch
+        if(s1.length() > s2.length()) return false;
+        vector<int> hash(26, 0);
+        for(int i = 0; i < s1.length(); i++){
+            hash[s1[i] - 'a']++;
+        }
+        for(int i = 0; i <= s2.length() - s1.length(); i++){
+            string w = s2.substr(i, s1.length());
+            if(checkPermutation(s1, w, hash)) return true;
         }
         return false;
-
     }
 };
+
+// int s1_size = s1.length();
+//         int s2_size = s2.length();
+//         if(s1_size > s2_size) return false;
+//         unordered_map<char, int> HashMap;
+//         for(int i = 0; i < s1_size; i++){
+//             if(HashMap.find(s1[i]) != HashMap.end()){
+//                 HashMap[s1[i]] += 1;
+//                 continue;
+//             }
+//             HashMap[s1[i]] = 1;
+//         }
+//         int n = s2_size - s1_size + 1;
+//         unordered_map<char, int> hashMap;
+//         // cout << s2 << endl;
+//         for(int i = 0; i < n; i++){
+//             cout << s2[i] << endl;
+//             if(HashMap.find(s2[i]) != HashMap.end()){
+//                 int m = 0;
+//                 hashMap = HashMap;
+//                 // cout << s2[i] << endl;
+//                 for(int j = 0; j < s1_size; j++){
+//                     if(hashMap.find(s2[j + i]) != hashMap.end() && hashMap[s2[j + i]] != 0){
+//                         hashMap[s2[j + i]] -= 1;
+//                         m++;
+//                         continue;
+//                     }
+//                     break;
+//                 }
+//                 if(m == s1_size) return true;
+//             }
+//         }
+//         return false;
