@@ -5,9 +5,9 @@ public:
         for(int i = 0; i < nums.size(); i++){
             arr[(i + k) % nums.size()] = nums[i];
         }
-        nums = arr;
-        // for(int i = 0; i < nums.size(); i++){
-        //     nums[i] = arr[i];
-        // }
+        // nums = arr;
+        for(int i = 0; i < nums.size(); i++){
+            nums[i] = arr[i];
+        }
     }
 };
