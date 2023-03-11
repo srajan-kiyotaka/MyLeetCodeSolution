@@ -1,9 +1,8 @@
 class Solution {
 public:
-    bool checkPermutation(string a, string b, vector<int> hash){
-        for(int i = 0; i < a.length(); i++){
-            if(hash[b[i] - 'a'] == 0) return false;
-            hash[b[i] - 'a']--;
+    bool compHash(vector<int>& a, vector<int>& b){
+        for(int i = 0; i < 26; i++){
+            if(a[i] != b[i]) return false;
         }
         return true;
     }
@@ -11,13 +10,22 @@ public:
     bool checkInclusion(string s1, string s2) {
         // Sliding Window approch
         if(s1.length() > s2.length()) return false;
-        vector<int> hash(26, 0);
+        vector<int> hash1(26, 0);
+        vector<int> hash2(26, 0);
         for(int i = 0; i < s1.length(); i++){
-            hash[s1[i] - 'a']++;
+            hash1[s1[i] - 'a']++;
+            hash2[s2[i] - 'a']++;
         }
-        for(int i = 0; i <= s2.length() - s1.length(); i++){
-            string w = s2.substr(i, s1.length());
-            if(checkPermutation(s1, w, hash)) return true;
+        
+        // First Window
+        if(compHash(hash1, hash2)) return true;
+
+        // For the remaining windows
+        for(int i = 1; i <= s2.length() - s1.length(); i++){
+            hash2[s2[i - 1] - 'a']--;
+            hash2[s2[i + s1.length() - 1] - 'a']++;
+            // cout << s2[i - 1] << ", " << s2[i + s1.length() - 1] << endl;
+            if(compHash(hash1, hash2)) return true;
         }
         return false;
     }
