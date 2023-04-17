@@ -63,7 +63,7 @@ class Solution
             }
         }
         return {countJobs, mxProfit};
-    } 
+    }  
 };
 
 //{ Driver Code Starts.
