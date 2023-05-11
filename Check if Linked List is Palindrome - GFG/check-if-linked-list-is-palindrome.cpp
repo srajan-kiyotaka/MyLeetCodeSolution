@@ -29,27 +29,65 @@ struct Node {
 };
 */
 #include <vector>
+#include <stack>
 
 class Solution{
+  private:
+    void reverse(Node* &root){
+        Node* curr = root;
+        Node* prev = NULL;
+        while(curr != NULL){
+            Node* forward = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = forward;
+        }
+        root = prev;
+    }
   public:
     //Function to check whether the list is palindrome.
     bool isPalindrome(Node *head)
     {
         // Approach 1
         // store it in an array
-        vector<int> arr;
-        Node* curr = head;
-        while(curr != NULL){
-            arr.push_back(curr->data);
-            curr = curr->next;
+        // vector<int> arr;
+        // Node* curr = head;
+        // while(curr != NULL){
+        //     arr.push_back(curr->data);
+        //     curr = curr->next;
+        // }
+        // int i = 0;
+        // int j = arr.size() - 1;
+        // while(i < j){
+        //     if(arr[i] != arr[j]) return false;
+        //     i++;
+        //     j--;
+        // }
+        // return true;
+        
+        // Approach 2
+        // Using Reverse
+        if(head == NULL || head->next == NULL) return true;
+        Node* slow = head;
+        Node* fast = head->next;
+        while(fast != NULL && fast->next != NULL){
+            slow = slow->next;
+            fast = fast->next->next;
         }
-        int i = 0;
-        int j = arr.size() - 1;
-        while(i < j){
-            if(arr[i] != arr[j]) return false;
-            i++;
-            j--;
+        if(fast == NULL){
+            reverse(slow);
         }
+        else{
+            slow = slow->next;
+            reverse(slow);
+        }
+        fast = head;
+        while(slow != NULL){
+            if(slow->data != fast->data) return false;
+            slow = slow->next;
+            fast = fast->next;
+        }
+        reverse(slow);
         return true;
     }
 };
