@@ -67,27 +67,56 @@ class Solution{
         
         // Approach 2
         // Using Reverse
+        // if(head == NULL || head->next == NULL) return true;
+        // Node* slow = head;
+        // Node* fast = head->next;
+        // while(fast != NULL && fast->next != NULL){
+        //     slow = slow->next;
+        //     fast = fast->next->next;
+        // }
+        // if(fast == NULL){
+        //     reverse(slow);
+        // }
+        // else{
+        //     slow = slow->next;
+        //     reverse(slow);
+        // }
+        // fast = head;
+        // while(slow != NULL){
+        //     if(slow->data != fast->data) return false;
+        //     slow = slow->next;
+        //     fast = fast->next;
+        // }
+        // reverse(slow);
+        // return true;
+        
+        // Approach 3
+        // Using Stack
         if(head == NULL || head->next == NULL) return true;
         Node* slow = head;
         Node* fast = head->next;
+        stack<int> stk;
         while(fast != NULL && fast->next != NULL){
+            stk.push(slow->data);
             slow = slow->next;
-            fast = fast->next->next;
+            fast = fast->next;
+            if(fast != NULL)
+                fast = fast->next;
+            
         }
-        if(fast == NULL){
-            reverse(slow);
+        if(fast != NULL){
+            stk.push(slow->data);
+            slow = slow->next;
         }
         else{
             slow = slow->next;
-            reverse(slow);
         }
-        fast = head;
         while(slow != NULL){
-            if(slow->data != fast->data) return false;
+            int num = stk.top();
+            stk.pop();
+            if(slow->data != num) return false;
             slow = slow->next;
-            fast = fast->next;
         }
-        reverse(slow);
         return true;
     }
 };
