@@ -31,6 +31,27 @@ int main() {
 
 vector<long long> printFirstNegativeInteger(long long int A[],
                                              long long int N, long long int K) {
+    
+    vector<long long> ans;
+    int j = 0;
+    while(j < N && A[j] >= 0){j++;}
+    for(int i = 0; i <= (N - K); i++){
+        if((j - i) < K){
+            ans.push_back(A[j]); 
+        }
+        else{
+            ans.push_back(0);
+        }
+        if(i == j){
+            j++;
+            while(j < N && A[j] >= 0){j++;}
+        }
+    }
+    return ans;
+ }
+ 
+ /*
+ 
     // Sliding Window Approach
     deque<long long int> dqu;
     // Create the first window
@@ -65,4 +86,5 @@ vector<long long> printFirstNegativeInteger(long long int A[],
         }
     }
     return ans;
- }
+ 
+ */
