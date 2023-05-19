@@ -114,46 +114,67 @@ struct Node
 bool findPath(Node* root, vector<int> &path, int node){
     // Base Case
     if(root == NULL) return false;
-    if(root->data == node) return true;
     // Add node to the path
     path.push_back(root->data);
+    if(root->data == node) return true;
     // Go and Find in Left
-    if(findPath(root->left, path, node)) return true;
-    // Go and Find in Right
-    if(findPath(root->right, path, node)) return true;
+    if(findPath(root->left, path, node) || findPath(root->right, path, node))
+        return true;
     // Pop back the node
     path.pop_back();
-}
-
-Node* solver(Node* root, int &k, int node){
-    // Base Case
-    if(root == NULL) return NULL;
-    // Check
-    if(root->data == node) return root;
-    // Go Left
-    Node* left = solver(root->left, k, node);
-    // Go Right
-    Node* right = solver(root->right, k, node);
-    // check
-    if(left != NULL){
-        k--;
-        if(k == 0) return root;
-        return left;
-    }
-    if(right != NULL){
-        k--;
-        if(k == 0) return root;
-        return right;
-    }
-    return NULL;
+    return false;
 }
 
 
 int kthAncestor(Node *root, int k, int node)
 {
     // Recursive Approach
-    // Find the node and then go back
-    Node* ans = solver(root, k, node);
-    if(ans == NULL || ans->data == node) return -1;
-    return ans->data;
+    // Brutu Force Approach
+    // Find the path to the node from the root.
+    // Time Complexity: O(N)
+    // Space Complexity: O(Height)
+    vector<int> path;
+    bool flag = findPath(root, path, node);
+    if(flag){
+        int n = path.size();
+        if(n - k - 1 < 0) return -1;
+        else return path[n - k - 1];
+    }
+    return -1;
 }
+
+
+// Node* solver(Node* root, int &k, int node){
+//     // Base Case
+//     if(root == NULL) return NULL;
+//     // Check
+//     if(root->data == node) return root;
+//     // Go Left
+//     Node* left = solver(root->left, k, node);
+//     // Go Right
+//     Node* right = solver(root->right, k, node);
+//     // check
+//     if(left != NULL){
+//         k--;
+//         if(k == 0) return root;
+//         return left;
+//     }
+//     if(right != NULL){
+//         k--;
+//         if(k == 0) return root;
+//         return right;
+//     }
+//     return NULL;
+// }
+
+
+// int kthAncestor(Node *root, int k, int node)
+// {
+//     // Recursive Approach
+//     // Find the node and then go back
+//     // Time Complexity: O(N)
+//     // Space Complexity: O(Height)
+//     Node* ans = solver(root, k, node);
+//     if(ans == NULL || ans->data == node) return -1;
+//     return ans->data;
+// }
