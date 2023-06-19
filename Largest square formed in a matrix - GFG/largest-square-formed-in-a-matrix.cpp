@@ -7,33 +7,34 @@ using namespace std;
 // } Driver Code Ends
 // User function Template for C++
 
-// class Solution{
-// public:
-//     int maxSquare(int n, int m, vector<vector<int>> mat){
-//         // DP: Bottom Up Approach: Space Optimization 2.
-//         int maxi = 0;
-//         vector<int> prev(n + 1, 0);
-//         for(int j = m - 1; j >= 0; j--){
-//             vector<int> curr(n + 1, 0);
-//             for(int i = n - 1; i >= 0; i--){
-//                 if(mat[i][j] == 1){
-//                     // move right
-//                     int ans = min(ans, prev[i]);
-//                     // move down
-//                     ans = min(ans, curr[i+1]);
-//                     // move diagonal
-//                     ans = min(ans, prev[i+1]);
-//                     ans++;
-//                     maxi = max(ans, maxi);
-//                     curr[i] = ans;
-//                 } 
-//             }
-//             prev = curr;
-//         }
-//         return maxi;
-//     }
-// };
+class Solution{
+public:
+    int maxSquare(int n, int m, vector<vector<int>> mat){
+        // DP: Bottom Up Approach: Space Optimization 2.
+        int maxi = 0;
+        vector<int> prev(n + 1, 0);
+        for(int j = m - 1; j >= 0; j--){
+            vector<int> curr(n + 1, 0);
+            for(int i = n - 1; i >= 0; i--){
+                if(mat[i][j] == 1){
+                    // move right
+                    int ans = min(ans, prev[i]);
+                    // move down
+                    ans = min(ans, curr[i+1]);
+                    // move diagonal
+                    ans = min(ans, prev[i+1]);
+                    ans++;
+                    maxi = max(ans, maxi);
+                    curr[i] = ans;
+                } 
+            }
+            prev = curr;
+        }
+        return maxi;
+    }
+};
 
+/*
 
 class Solution{
 public:
@@ -61,6 +62,9 @@ public:
         return maxi;
     }
 };
+
+*/
+
 
 /*
 
