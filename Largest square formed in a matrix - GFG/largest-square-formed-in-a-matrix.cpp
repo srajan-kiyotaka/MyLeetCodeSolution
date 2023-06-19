@@ -10,6 +10,44 @@ using namespace std;
 class Solution{
 public:
     int maxSquare(int n, int m, vector<vector<int>> mat){
+        // DP: Bottom Up Approach: Tabulation.
+        int maxi = 0;
+        for(int i = n - 1; i >= 0; i--){
+            for(int j = m - 1; j >= 0; j--){
+                if(mat[i][j] == 1){
+                    int ans = INT_MAX;
+                    // move right
+                    if(j + 1 < m){
+                        ans = min(ans, mat[i][j+1]);
+                    }
+                    else ans = 0;
+                    // move down
+                    if(i + 1 < n){
+                        ans = min(ans, mat[i+1][j]);
+                    }
+                    else ans = 0;
+                    // move diagonal
+                    if(i + 1 < n && j + 1 < m){
+                        ans = min(ans, mat[i+1][j+1]);
+                    }
+                    else ans = 0;
+                    ans++;
+                    maxi = max(ans, maxi);
+                    mat[i][j] = ans;
+                } 
+            }
+        }
+        
+        return maxi;
+    }
+};
+
+
+/*
+
+class Solution{
+public:
+    int maxSquare(int n, int m, vector<vector<int>> mat){
         // DP: Bottom Up Approach: Space Optimization 2.
         int maxi = 0;
         vector<int> prev(n + 1, 0);
@@ -33,6 +71,9 @@ public:
         return maxi;
     }
 };
+
+*/
+
 
 /*
 
