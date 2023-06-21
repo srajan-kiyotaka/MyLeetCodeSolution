@@ -7,8 +7,33 @@ using namespace std;
 class Solution {
   public:
     long long noOfWays(int M , int N , int X) {
+        // DP: Bottom Up Approach: Space Optimization.
+        // Time Complexity: O(M*N*M)
+        // Space Complexity: O(X)
+        vector<long long> curr(X + 1, 0);
+        curr[0] = 1;
+        for(int i = 1; i <= N; i++){
+            vector<long long> next(X + 1, 0);
+            for(int t = 1; t <= X; t++){
+                for(int j = 1; j <= M; j++){
+                    if(t >= j)
+                        next[t] += curr[t-j];
+                }
+            }
+            curr = next;
+        }
+        return curr[X];
+    }
+};
+
+
+/*
+
+class Solution {
+  public:
+    long long noOfWays(int M , int N , int X) {
         // DP: Bottom Up Approach: Tabulation.
-        // Time Complexity: O(M*N)
+        // Time Complexity: O(M*N*M)
         // Space Complexity: O(N*X)
         vector<vector<long long>> dp(N + 1, vector<long long>(X + 1, 0));
         dp[0][0] = 1;
@@ -23,6 +48,8 @@ class Solution {
         return dp[N][X];
     }
 };
+
+*/
 
 
 /*
@@ -44,7 +71,7 @@ class Solution {
   public:
     long long noOfWays(int M , int N , int X) {
         // DP: Top Down Approach: Recursion + Memoization.
-        // Time Complexity: O(M*N)
+        // Time Complexity: O(M*N*M)
         // Space Complexity: O(N*X)
         vector<vector<long long>> dp(N + 1, vector<long long>(X + 1, -1));
         return solver(M, N, X, dp);
@@ -72,7 +99,7 @@ class Solution {
   public:
     long long noOfWays(int M , int N , int X) {
         // Recursive Approach.
-        // Time Complexity: O(M^N)
+        // Time Complexity: O(M^N*X)
         // Space Complexity: O(N)
         return solver(M, N, X);
     }
