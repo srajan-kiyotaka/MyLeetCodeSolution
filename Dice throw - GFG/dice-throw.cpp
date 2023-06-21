@@ -5,6 +5,29 @@ using namespace std;
 // } Driver Code Ends
 
 class Solution {
+  public:
+    long long noOfWays(int M , int N , int X) {
+        // DP: Bottom Up Approach: Tabulation.
+        // Time Complexity: O(M*N)
+        // Space Complexity: O(N*X)
+        vector<vector<long long>> dp(N + 1, vector<long long>(X + 1, 0));
+        dp[0][0] = 1;
+        for(int i = 1; i <= N; i++){
+            for(int t = 1; t <= X; t++){
+                for(int j = 1; j <= M; j++){
+                    if(t >= j)
+                        dp[i][t] += dp[i-1][t-j];
+                }
+            }
+        }
+        return dp[N][X];
+    }
+};
+
+
+/*
+
+class Solution {
   private:
     long long solver(int M, int N, int X, vector<vector<long long>> &dp){
         // Base Case
@@ -21,12 +44,15 @@ class Solution {
   public:
     long long noOfWays(int M , int N , int X) {
         // DP: Top Down Approach: Recursion + Memoization.
-        // Time Complexity: O(M^N)
-        // Space Complexity: O(N)
+        // Time Complexity: O(M*N)
+        // Space Complexity: O(N*X)
         vector<vector<long long>> dp(N + 1, vector<long long>(X + 1, -1));
         return solver(M, N, X, dp);
     }
 };
+
+*/
+
 
 /*
 
