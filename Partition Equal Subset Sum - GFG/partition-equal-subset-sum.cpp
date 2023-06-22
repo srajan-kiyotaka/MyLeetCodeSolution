@@ -8,18 +8,36 @@ using namespace std;
 // User function Template for C++
 
 class Solution{
-private:
-    bool solver(int n, int arr[], int index, int target, vector<vector<int>> &dp){
-        // Base Case
-        if(target == 0) return true;
-        if(index >= n || target < 0) return false;
-        if(dp[index][target] != -1) return dp[index][target];
-        // Exclude or Include
-        bool exc = solver(n, arr, index + 1, target, dp);
-        bool inc = solver(n, arr, index + 1, target - arr[index], dp);
-        dp[index][target] = (exc or inc);
-        return (exc or inc);
+public:
+    int equalPartition(int N, int arr[])
+    {
+        // DP: Bottom Up Approach: Space Optimization.
+        // Time Complexity: O(N*Total)
+        // Space Complexity: O(Total)
+        int totalSum = 0;
+        for(int i = 0; i < N; i++){
+            totalSum += arr[i];
+        }
+        if(totalSum & 1) return 0;
+        int target = totalSum/2;
+        vector<int> curr(target + 1, 0);
+        curr[0] = 1;
+        for(int i = N - 1; i >= 0; i--){
+            vector<int> next(target + 1, 0);
+            for(int j = 0; j <= target; j++){
+                next[j] = curr[j];
+                if(j - arr[i] >= 0)
+                    next[j] = next[j] or curr[j - arr[i]];
+            }
+            curr = next;
+        }
+        return curr[target];
     }
+};
+
+/*
+
+class Solution{
 public:
     int equalPartition(int N, int arr[])
     {
@@ -46,6 +64,8 @@ public:
         return dp[0][target];
     }
 };
+
+*/
 
 /*
 
