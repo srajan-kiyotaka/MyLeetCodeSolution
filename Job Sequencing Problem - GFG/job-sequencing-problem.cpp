@@ -26,44 +26,43 @@ struct Job
 class Solution 
 {
     public:
-    bool static comp(pair<int, int> &a, pair<int, int> &b){
-        return a.second > b.second;
-    }
     //Function to find the maximum profit and the number of jobs done.
     vector<int> JobScheduling(Job arr[], int n) 
     { 
-        // your code here
-        int vis[101] = {0};
-        
-        vector<pair<int, int>> v;
+        // Greedy Approach
+        // Time Complexity: 
+        // Space Complexity: 
+        sort(arr, arr + n, [&](Job &a, Job &b){
+            return (a.profit > b.profit);
+        });
+        int maxDeadline = INT_MIN;
         for(int i = 0; i < n; i++){
-            v.push_back({arr[i].dead, arr[i].profit});
+            maxDeadline = max(maxDeadline, arr[i].dead);
         }
-        
-        sort(v.begin(), v.end(), comp);
-        
-        int mxProfit = 0, countJobs = 0;
-        for(auto it: v){
-            if(!vis[it.first]){
-                vis[it.first] = 1;
-                countJobs++;
-                mxProfit += it.second;
-            }
-            else{
-                int i = it.first -1;
-                while(i > 0){
-                    if(!vis[i]){
-                        vis[i] = 1;
-                        countJobs++;
-                        mxProfit += it.second;
+        vector<int> deadline(maxDeadline+1, -1);
+        int maxProfit = 0;
+        int maxJobs = 0;
+        for(int i = 0; i < n; i++){
+            if(deadline[arr[i].dead] != -1){
+                int j = arr[i].dead - 1;
+                while(j > 0){
+                    if(deadline[j] == -1){
+                        deadline[j] = arr[i].id;
+                        maxProfit += arr[i].profit;
+                        maxJobs++;
                         break;
                     }
-                    i--;
+                    j--;
                 }
             }
+            else{
+                deadline[arr[i].dead] = arr[i].id;
+                maxProfit += arr[i].profit;
+                maxJobs++;
+            }
         }
-        return {countJobs, mxProfit};
-    }  
+        return {maxJobs, maxProfit};
+    } 
 };
 
 //{ Driver Code Starts.
