@@ -3,19 +3,23 @@
 using namespace std;
 
 // } Driver Code Ends
+
 class Solution{
     public:
     long long findMinDiff(vector<long long> a, long long n, long long m){
-        // Sliding Window Approach.
-        // Sort the array
+    //code
         sort(a.begin(),a.end());
-        long long ans = LLONG_MAX;
-        for(int i = m-1; i < n; i++){
-            ans = min(ans, a[i] - a[i-m+1]);
+        long long  first=m-1,second=0;
+        long long minDiff=INT_MAX;
+        while(first<n){
+            minDiff=min((a[first]-a[second]),minDiff);
+            first++;
+            second++;
         }
-        return ans;
+        return minDiff;
     }   
 };
+
 
 //{ Driver Code Starts.
 int main() {
